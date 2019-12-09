@@ -97,6 +97,15 @@ JOIN artist a ON a.artist_id = al.artist_id
 GROUP BY a.name;
 
 
+SELECT DISTINCT composer
+FROM track;
+
+SELECT DISTINCT billing_postal_code
+From invoice;
+
+SELECT DISTINCT company
+FROM customer;
+
 
 
 
