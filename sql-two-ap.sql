@@ -1,3 +1,5 @@
+//Practice joins
+
 SELECT * FROM invoice_line
 WHERE unit_price > 0.99;
 
@@ -30,6 +32,7 @@ JOIN album a ON a.album_id = t.album_id
 JOIN genre g ON g.genre_id = t.genre_id
 WHERE g.name = 'Alternative & Punk';
 
+//Practice nested queries
 
 SELECT * FROM invoice
 WHERE invoice_id IN 
@@ -56,6 +59,7 @@ SELECT * FROM track
  	( SELECT album_id FROM album WHERE artist_id IN (
    		SELECT artist_id FROM artist WHERE name = 'Queen'));
 
+//Practice updating Rows
 
 UPDATE customer
 SET fax = null
@@ -79,6 +83,7 @@ WHERE genre_id =
     ( SELECT genre_id FROM genre WHERE name = 'Metal')
 AND composer IS null;
 
+//Group by
 
 SELECT COUNT (*), g.name
 FROM track t
@@ -96,6 +101,7 @@ FROM album al
 JOIN artist a ON a.artist_id = al.artist_id
 GROUP BY a.name;
 
+//Use Distinct
 
 SELECT DISTINCT composer
 FROM track;
@@ -105,6 +111,19 @@ From invoice;
 
 SELECT DISTINCT company
 FROM customer;
+
+//Delete Rows
+
+DELETE FROM practice_delete 
+WHERE type = 'bronze';
+
+DELETE FROM practice_delete 
+WHERE type = 'silver';
+
+DELETE FROM practice_delete 
+WHERE value = 150;
+
+//eCommerce Simulation
 
 
 
