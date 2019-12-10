@@ -32,6 +32,16 @@ JOIN album a ON a.album_id = t.album_id
 JOIN genre g ON g.genre_id = t.genre_id
 WHERE g.name = 'Alternative & Punk';
 
+//Black Diamond
+SELECT t.name, g.name, al.title, ar.name
+FROM playlist p
+JOIN playlist_track pt ON pt.playlist_id = p.playlist_id
+JOIN track t ON t.track_id = pt.track_id
+JOIN genre g ON g.genre_id = t.genre_id
+JOIN album al ON al.album_id = t.album_id
+JOIN artist ar ON ar.artist_id = al.artist_id
+WHERE p.name = 'Music';
+
 //Practice nested queries
 
 SELECT * FROM invoice
@@ -125,6 +135,76 @@ WHERE value = 150;
 
 //eCommerce Simulation
 
+CREATE TABLE store_customers (
+  customer_id SERIAL PRIMARY KEY,
+  username VARCHAR(50) NOT NULL, 
+  email VARCHAR(100) NOT NULL
+   );
+  
+CREATE TABLE products (
+  product_id SERIAL PRIMARY KEY,
+  product_name VARCHAR(100),
+  product_price INTEGER  
+ );
+
+CREATE TABLE orders (
+  order_id SERIAL PRIMARY KEY,
+  order_total INTEGER,
+  product_id INTEGER REFERENCES products(product_id),
+  customer_id INTEGER REFERENCES store_customers(customer_id)
+);
 
 
+INSERT INTO store_customers ( 
+    username, email
+    ) VALUES ('Zero Kiryu', 'zero@zmail.com');
+INSERT INTO store_customers ( 
+    username, email
+    ) VALUES ('Kaname Kuran', 'kaname@zmail.com');
+INSERT INTO store_customers ( 
+    username, email
+    ) VALUES ('Yuki Cross', 'yuki@zmail.com');
 
+INSERT INTO products (
+    product_name, product_price
+    ) VALUES ('Artemis Rod', 999);
+
+INSERT INTO products (
+    product_name, product_price
+    ) VALUES ('Resin Rose', 9999);
+
+INSERT INTO products (
+    product_name, product_price
+    ) VALUES ('Hunter Bracelet', 99);
+
+INSERT INTO orders (
+    order_total, customer_id
+) VALUES ('1098', 1);
+
+INSERT INTO orders (
+    order_total, customer_id
+) VALUES ('10098', 2);
+
+INSERT INTO orders (
+    order_total, customer_id
+) VALUES ('10998', 3);
+
+INSERT INTO orders (
+    order_total, customer_id
+) VALUES ('99', 1);
+
+ALTER TABLE orders
+ADD username VARCHAR(50);
+
+SELECT * FROM orders
+WHERE customer_id = 1;
+
+SELECT COUNT(*) 
+FROM orders
+WHERE customer_id = 1;
+
+//Black Diamond
+
+SELECT SUM(order_total), customer_id
+FROM orders
+GROUP BY customer_id;
